@@ -2,7 +2,7 @@ import components.standard.Standard;
 
 /**
  *
- * @author shivam
+ * @author Shivam Engineer
  *
  */
 public interface ObjectKernel extends Standard<Object> {

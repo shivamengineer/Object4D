@@ -4,7 +4,7 @@ import components.map.Map1L;
 
 /**
  *
- * @author shivam
+ * @author Shivam Engineer
  *
  */
 public abstract class ObjectSecondary implements Object {

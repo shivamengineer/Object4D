@@ -4,7 +4,7 @@ import components.simplewriter.SimpleWriter1L;;
 /**
  * Simple HelloWorld program (clear of Checkstyle and SpotBugs warnings).
  *
- * @author P. Bucci
+ * @author Shivam Engineer
  */
 public final class TestObjects4D {
 
