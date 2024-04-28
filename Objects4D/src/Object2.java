@@ -11,9 +11,10 @@ public final class Object2 extends ObjectSecondary {
     private int numVertices;
 
     /**
-     *
+     * change to points
      */
     private Line2[] lines;
+    //private Point2[] points;
 
     /**
      *
@@ -21,14 +22,16 @@ public final class Object2 extends ObjectSecondary {
     private int dimensions;
 
     /**
-     *
+     * adjust to use points instead
      */
     public Object2() {
         this.dimensions = Constants.DIMENSIONS;
         this.numVertices = Constants.DIMENSIONS;
         this.lines = new Line2[this.numVertices];
+        //this.points = new Point2[this.numVertices];
         for (int i = 0; i < this.numVertices; i++) {
             this.lines[i] = new Line2();
+            //this.points[i] = new Point2();
         }
     }
 
@@ -40,7 +43,7 @@ public final class Object2 extends ObjectSecondary {
                 * this.numVertices : "violation of enough point coordinates";
 
         //set dimensions
-
+        //replace lines with points
         boolean init = false;
         int[] last = new int[Constants.DIMENSIONS];
         int lines = 0;
@@ -85,6 +88,7 @@ public final class Object2 extends ObjectSecondary {
     public void clear() {
         this.numVertices = Constants.DIMENSIONS;
         for (int i = 0; i < this.numVertices; i++) {
+            //this.points[i].clear();
             this.lines[i].clear();
         }
     }
@@ -124,6 +128,7 @@ public final class Object2 extends ObjectSecondary {
     }
 
     @Override
+    //public Point[] getPoints(){
     public Line[] getLines() {
         return this.lines;
     }
