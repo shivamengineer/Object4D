@@ -88,6 +88,7 @@ public final class Object2 extends ObjectSecondary {
     public void clear() {
         this.numVertices = Constants.DIMENSIONS;
         for (int i = 0; i < this.numVertices; i++) {
+            //this.points[i].clear();
             this.lines[i].clear();
         }
     }
@@ -127,6 +128,7 @@ public final class Object2 extends ObjectSecondary {
     }
 
     @Override
+    //public Point[] getPoints(){
     public Line[] getLines() {
         return this.lines;
     }
