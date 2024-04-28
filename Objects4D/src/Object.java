@@ -6,7 +6,7 @@ import components.map.Map;
  * @author Shivam Engineer
  */
 public interface Object extends ObjectKernel {
-
+//change Object to something else to not confuse with Java Object
     /**
      *
      * @param dimensions
