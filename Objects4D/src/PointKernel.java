@@ -1,5 +1,6 @@
 import components.map.Map;
 import components.sequence.Sequence;
+import components.sequence.Sequence1L;
 import components.standard.Standard;
 
 /**
@@ -20,13 +21,13 @@ public interface PointKernel extends Standard<Point> {
      * @param point
      * @param time
      */
-    void createPointFrame(int[] point, int time);
+    void createPointFrame(int time, int[] point);
 
     /**
      * @param time
      * @return pointFrame
      */
-    Map.Pair<Integer, int[]> removePointFrame(int time);
+    Map.Pair<Integer, Sequence1L<Integer>> removePointFrame(int time);
 
     /**
      * @param time
@@ -47,6 +48,6 @@ public interface PointKernel extends Standard<Point> {
     /**
      * @return positions
      */
-    Map<Integer, int[]> getPositionFrames();
+    Map<Integer, Sequence1L<Integer>> getPositionFrames();
 
 }

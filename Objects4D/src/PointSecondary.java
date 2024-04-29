@@ -1,5 +1,6 @@
 import components.map.Map;
 import components.sequence.Sequence;
+import components.sequence.Sequence1L;
 
 /**
  *
@@ -12,7 +13,7 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
-    public void translatePointAtTime(int[] translateDistance, int time) {
+    public void translatePointAtTime(int time, int[] translateDistance) {
         assert translateDistance.length == this
                 .getDimensions() : "violation of wrong "
                         + "number of dimensions";
@@ -24,26 +25,28 @@ public abstract class PointSecondary implements Point {
             newPosition[i] = this.getPointCoordinates(time)[i]
                     + translateDistance[i];
         }
-        this.createPointFrame(newPosition, time);
+        this.createPointFrame(time, newPosition);
     }
 
     /**
      *
      */
     @Override
-    public void setNewPointCoordinates(int[] newCoordPosition, int time) {
+    public void setNewPointCoordinates(int time, int[] newCoordPosition) {
         assert newCoordPosition.length == this
                 .getDimensions() : "violation of wrong "
                         + "number of dimensions";
-        this.createPointFrame(newCoordPosition, time);
+        this.createPointFrame(time, newCoordPosition);
     }
 
     /**
      *
      */
     @Override
-    public Map.Pair<Integer, int[]> previousPositionFrame(int time) {
-        Map<Integer, int[]> tempPositions = this.getPositionFrames();
+    public Map.Pair<Integer, Sequence1L<Integer>> previousPositionFrame(
+            int time) {
+        Map<Integer, Sequence1L<Integer>> tempPositions = this
+                .getPositionFrames();
         return tempPositions.remove(this.findTimeIndex(time) - 1);
     }
 
@@ -51,8 +54,9 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
-    public Map.Pair<Integer, int[]> nextPositionFrame(int time) {
-        Map<Integer, int[]> tempPositions = this.getPositionFrames();
+    public Map.Pair<Integer, Sequence1L<Integer>> nextPositionFrame(int time) {
+        Map<Integer, Sequence1L<Integer>> tempPositions = this
+                .getPositionFrames();
         return tempPositions.remove(this.findTimeIndex(time) + 1);
     }
 
@@ -63,14 +67,15 @@ public abstract class PointSecondary implements Point {
     public String toString() {
         String toString = "";
         Sequence<Integer> times = this.getOrderedTimes();
-        Map<Integer, int[]> positions = this.getPositionFrames();
+        Map<Integer, Sequence1L<Integer>> positions = this.getPositionFrames();
         for (int i = 0; i < times.length(); i++) {
-            Map.Pair<Integer, int[]> tempPos = positions.remove(times.entry(i));
+            Map.Pair<Integer, Sequence1L<Integer>> tempPos = positions
+                    .remove(times.entry(i));
             toString += "Time ";
             toString += times.entry(i);
             toString += ": ";
             for (int j = 0; j < this.getDimensions(); j++) {
-                toString += tempPos.value()[j];
+                toString += tempPos.value().entry(j);
                 if (j != this.getDimensions() - 1) {
                     toString += ",";
                 }
