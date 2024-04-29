@@ -18,7 +18,7 @@ public final class Point2 extends PointSecondary {
     /**
      *
      */
-    private Map<Integer, int[]> positions;
+    private Map<Integer, Sequence1L<Integer>> positions;
 
     /**
      *
@@ -28,9 +28,9 @@ public final class Point2 extends PointSecondary {
     /**
      * @param d
      */
-    public void point2(int d) {
+    public Point2(int d) {
         this.times = new Sequence1L<Integer>();
-        this.positions = new Map1L<Integer, int[]>();
+        this.positions = new Map1L<Integer, Sequence1L<Integer>>();
         this.dimensions = d;
     }
 
@@ -44,35 +44,67 @@ public final class Point2 extends PointSecondary {
         for (int i = 0; i < this.times.length() && !posFound; i++) {
             if (time < this.times.entry(i)) {
                 posFound = true;
-                index = i - 1;
+                index = i;
             }
         }
+        index--;
         return index;
+    }
+
+    /**
+     *
+     * @param arr
+     * @return sequence form
+     */
+    private Sequence1L<Integer> toSequence(int[] arr) {
+        Sequence1L<Integer> seq = new Sequence1L<Integer>();
+        for (int i = 0; i < arr.length; i++) {
+            seq.add(i, arr[i]);
+        }
+        return seq;
+    }
+
+    /**
+     *
+     * @param seq
+     * @return int arr
+     */
+    private int[] toIntArr(Sequence1L<Integer> seq) {
+        int[] arr = new int[seq.length()];
+        for (int i = 0; i < seq.length(); i++) {
+            arr[i] = seq.entry(i);
+        }
+        return arr;
     }
 
     /**
      * @requires point.length == length of this.positions.removeAny.value()
      */
     @Override
-    public void createPointFrame(int[] point, int time) {
-        if (this.positions.size() == 0) {
-            this.dimensions = point.length;
+    public void createPointFrame(int time, int[] point) {
+        boolean posFound = false;
+        int index = this.times.length();
+        for (int i = 0; i < this.times.length() && !posFound; i++) {
+            if (time < this.times.entry(i)) {
+                posFound = true;
+                index = i - 1;
+            }
         }
-        if (!this.positions.hasKey(time)) {
-            this.times.add(this.findTimeIndex(time), time);
-            this.positions.add(time, point);
-        } else {
-            this.positions.remove(this.findTimeIndex(time));
-            this.positions.add(time, point);
-        }
+        System.out.println(
+                "Time: " + time + ". Seq: " + this.times + ". Index: " + index);
+        this.times.add(index, time);
+        Sequence1L<Integer> seq = this.toSequence(point);
+        this.positions.add(time, seq);
     }
 
     /**
      *
      */
     @Override
-    public Map.Pair<Integer, int[]> removePointFrame(int time) {
+    public Map.Pair<Integer, Sequence1L<Integer>> removePointFrame(int time) {
         assert this.positions.hasKey(time) : "violation of time frame exists";
+
+        this.times.remove(this.findTimeIndex(time));
         return this.positions.remove(time);
     }
 
@@ -83,11 +115,6 @@ public final class Point2 extends PointSecondary {
         this.times.clear();
         this.positions.clear();
         this.dimensions = Constants.THREE;
-        int[] point = new int[this.dimensions];
-        for (int i = 0; i < point.length; i++) {
-            point[i] = 0;
-        }
-        this.createPointFrame(point, 0);
     }
 
     /**
@@ -95,32 +122,41 @@ public final class Point2 extends PointSecondary {
      */
     @Override
     public int[] getPointCoordinates(int time) {
-        int[] pointCoords = new int[this.dimensions];
+        int[] pointCoords;
+        Sequence1L<Integer> seq = new Sequence1L<Integer>();
+        System.out.println(this.positions.size());
         if (this.positions.hasKey(time)) {
-            pointCoords = this.positions.value(time);
+            System.out.println("true");
+            seq = this.positions.value(time);
+            System.out.println(this.positions.value(time));
+            System.out.println("null");
         } else {
             int index = this.findTimeIndex(time);
             if (index == this.times.length() - 1) {
-                pointCoords = this.positions.value(this.times.entry(index));
+                System.out.println("true");
+                seq = this.positions.value(this.times.entry(index));
             } else {
-                int[] previousCoords = this.positions
+                System.out.println("false");
+                Sequence1L<Integer> previousCoords = this.positions
                         .value(this.times.entry(index));
-                int[] nextCoords = this.positions
+                Sequence1L<Integer> nextCoords = this.positions
                         .value(this.times.entry(index + 1));
                 int time1 = this.times.entry(index);
                 int time2 = this.times.entry(index + 1);
 
                 int timeDifference = time2 - time1;
-
+                pointCoords = new int[this.dimensions];
                 for (int i = 0; i < this.dimensions; i++) {
-                    pointCoords[i] = previousCoords[i];
 
-                    int posDifference = nextCoords[i] - previousCoords[i];
+                    int posDifference = nextCoords.entry(i)
+                            - previousCoords.entry(i);
                     int slope = posDifference / timeDifference;
-                    pointCoords[i] += slope * (time - time1);
+                    seq.add(i,
+                            previousCoords.entry(i) + (slope * (time - time1)));
                 }
             }
         }
+        pointCoords = this.toIntArr(seq);
         return pointCoords;
     }
 
@@ -130,7 +166,7 @@ public final class Point2 extends PointSecondary {
     }
 
     @Override
-    public Map<Integer, int[]> getPositionFrames() {
+    public Map<Integer, Sequence1L<Integer>> getPositionFrames() {
         return this.positions;
     }
 
@@ -146,13 +182,11 @@ public final class Point2 extends PointSecondary {
 
     @Override
     public Point newInstance() {
-        return new Point2();
+        return new Point2(Constants.THREE);
     }
 
     @Override
     public void transferFrom(Point p) {
-        Map<Integer, int[]> temp = this.positions;
-        Sequence<Integer> tempSeq = this.times;
         this.positions = p.getPositionFrames();
         this.times = p.getOrderedTimes();
         p.clear();
