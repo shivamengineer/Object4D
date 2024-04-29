@@ -13,12 +13,12 @@ public final class Point2 extends PointSecondary {
     /**
      *
      */
-    private Sequence<Integer> times = new Sequence1L<Integer>();
+    private Sequence<Integer> times;
 
     /**
      *
      */
-    private Map<Integer, int[]> positions = new Map1L<Integer, int[]>();
+    private Map<Integer, int[]> positions;
 
     /**
      *
@@ -26,17 +26,12 @@ public final class Point2 extends PointSecondary {
     private int dimensions;
 
     /**
-     *
+     * @param d
      */
-    public void point2() {
-        this.times.clear();
-        this.positions.clear();
-        this.dimensions = Constants.THREE;
-        int[] point = new int[this.dimensions];
-        for (int i = 0; i < point.length; i++) {
-            point[i] = 0;
-        }
-        this.createPointFrame(point, 0);
+    public void point2(int d) {
+        this.times = new Sequence1L<Integer>();
+        this.positions = new Map1L<Integer, int[]>();
+        this.dimensions = d;
     }
 
     /**
