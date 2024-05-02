@@ -55,7 +55,7 @@ public abstract class PointSecondary implements Point {
      */
     @Override
     public int hashCode() {
-        return 0;
+        return this.getTimes().length();
     }
 
     /**
@@ -63,6 +63,6 @@ public abstract class PointSecondary implements Point {
      */
     @Override
     public boolean equals(Object o) {
-        return false;
+        return this.hashCode() == o.hashCode();
     }
 }
