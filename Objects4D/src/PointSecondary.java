@@ -25,6 +25,15 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
+    public void setFramePosition(Integer time, Integer[] newCoords) {
+        this.removeFrame(time);
+        this.createNewFrame(time, newCoords);
+    }
+
+    /**
+     *
+     */
+    @Override
     public String toString() {
         String toString = "";
         Sequence<Integer> times = this.getTimes();
