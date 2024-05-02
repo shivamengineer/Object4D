@@ -41,7 +41,7 @@ public abstract class PointSecondary implements Point {
         for (int i = 0; i < times.length(); i++) {
             Integer time = times.entry(i);
             Integer[] position = keyFrames.value(time);
-            toString += time + i + ": {";
+            toString += "Time " + time + ": {";
             for (int j = 0; j < position.length - 1; j++) {
                 toString += position[j] + ", ";
             }
