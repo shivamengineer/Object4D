@@ -34,11 +34,6 @@ public final class Point2 extends PointSecondary {
         this.dimensions = d;
     }
 
-    /**
-     *
-     * @param time
-     * @param pos
-     */
     @Override
     public void createNewFrame(int time, Integer[] pos) {
         int i = 0;
@@ -53,11 +48,6 @@ public final class Point2 extends PointSecondary {
         this.keyFrames.add(time, pos);
     }
 
-    /**
-     *
-     * @param time
-     * @return frame removed
-     */
     @Override
     public Map.Pair<Integer, Integer[]> removeFrame(int time) {
         boolean removed = false;
@@ -68,6 +58,16 @@ public final class Point2 extends PointSecondary {
             }
         }
         return this.keyFrames.remove(time);
+    }
+
+    @Override
+    public Sequence<Integer> getTimes() {
+        return this.times;
+    }
+
+    @Override
+    public Map<Integer, Integer[]> getFrames() {
+        return this.keyFrames;
     }
 
     /**

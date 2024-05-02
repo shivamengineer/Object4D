@@ -1,4 +1,5 @@
 import components.map.Map;
+import components.sequence.Sequence;
 import components.standard.Standard;
 
 /**
@@ -21,5 +22,17 @@ public interface PointKernel extends Standard<Point> {
      * @return removed frame
      */
     Map.Pair<Integer, Integer[]> removeFrame(int time);
+
+    /**
+     *
+     * @return time sequence
+     */
+    Sequence<Integer> getTimes();
+
+    /**
+     *
+     * @return keyFrames
+     */
+    Map<Integer, Integer[]> getFrames();
 
 }
