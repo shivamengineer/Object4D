@@ -12,6 +12,19 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
+    public void translateFrame(Integer time, Integer[] translateDistance) {
+        Map.Pair<Integer, Integer[]> temp = this.removeFrame(time);
+        Integer[] pos = temp.value();
+        for (int i = 0; i < pos.length; i++) {
+            pos[i] += translateDistance[i];
+        }
+        this.createNewFrame(time, pos);
+    }
+
+    /**
+     *
+     */
+    @Override
     public String toString() {
         String toString = "";
         Sequence<Integer> times = this.getTimes();
