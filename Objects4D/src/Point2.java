@@ -61,6 +61,23 @@ public final class Point2 extends PointSecondary {
     }
 
     @Override
+    public Integer[] getPosition(int time) {
+        if (this.keyFrames.hasKey(time)) {
+            Integer[] pos = this.keyFrames.remove(time).value();
+            boolean removed = false;
+            for (int i = 0; !removed && i < this.times.length(); i++) {
+                if (this.times.entry(i) == time) {
+                    removed = true;
+                    this.times.remove(i);
+                }
+            }
+            return pos;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public Sequence<Integer> getTimes() {
         return this.times;
     }
