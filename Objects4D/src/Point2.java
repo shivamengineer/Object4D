@@ -34,6 +34,23 @@ public final class Point2 extends PointSecondary {
         this.dimensions = d;
     }
 
+    /**
+     *
+     * @param time
+     * @return index
+     */
+    private int getIndexOfTime(int time) {
+        int index = -1;
+        boolean indexFound = false;
+        for (int i = 0; !indexFound && i < this.times.length(); i++) {
+            if (this.times.entry(i) == time) {
+                index = i;
+                indexFound = true;
+            }
+        }
+        return index;
+    }
+
     @Override
     public void createNewFrame(int time, Integer[] pos) {
         int i = 0;
@@ -62,19 +79,13 @@ public final class Point2 extends PointSecondary {
 
     @Override
     public Integer[] getPosition(int time) {
+        Integer[] pos = null;
         if (this.keyFrames.hasKey(time)) {
-            Integer[] pos = this.keyFrames.remove(time).value();
-            boolean removed = false;
-            for (int i = 0; !removed && i < this.times.length(); i++) {
-                if (this.times.entry(i) == time) {
-                    removed = true;
-                    this.times.remove(i);
-                }
-            }
-            return pos;
-        } else {
-            return null;
+            pos = this.keyFrames.remove(time).value();
+            int index = this.getIndexOfTime(time);
+            this.times.remove(index);
         }
+        return pos;
     }
 
     @Override
