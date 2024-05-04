@@ -34,7 +34,7 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
-    public Integer[] getPositionBetweenFrames(int time) {
+    public Integer[] getPositionAtTime(int time) {
         return null;
     }
 

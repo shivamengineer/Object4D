@@ -20,10 +20,11 @@ public interface Point extends PointKernel {
     void setFramePosition(int time, Integer[] newCoords);
 
     /**
+     * gets position even if not at a specific time frame.
      *
      * @param time
      * @return position
      */
-    Integer[] getPositionBetweenFrames(int time);
+    Integer[] getPositionAtTime(int time);
 
 }
