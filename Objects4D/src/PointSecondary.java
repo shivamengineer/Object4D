@@ -12,7 +12,7 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
-    public void translateFrame(Integer time, Integer[] translateDistance) {
+    public void translateFrame(int time, Integer[] translateDistance) {
         Map.Pair<Integer, Integer[]> temp = this.removeFrame(time);
         Integer[] pos = temp.value();
         for (int i = 0; i < pos.length; i++) {
@@ -25,9 +25,17 @@ public abstract class PointSecondary implements Point {
      *
      */
     @Override
-    public void setFramePosition(Integer time, Integer[] newCoords) {
+    public void setFramePosition(int time, Integer[] newCoords) {
         this.removeFrame(time);
         this.createNewFrame(time, newCoords);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public Integer[] getPositionBetweenFrames(int time) {
+        return null;
     }
 
     /**
