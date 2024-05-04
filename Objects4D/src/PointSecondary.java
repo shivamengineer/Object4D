@@ -35,7 +35,31 @@ public abstract class PointSecondary implements Point {
      */
     @Override
     public Integer[] getPositionAtTime(int time) {
-        return null;
+        Integer[] position = null;
+        Map<Integer, Integer[]> tempMap = this.getFrames();
+        if (tempMap.hasKey(time)) {
+            position = tempMap.value(time);
+        } else if (tempMap.size() > 0) {
+            Sequence<Integer> tempSeq = this.getTimes();
+            boolean found = false;
+            int i;
+            for (i = 0; !found && i < tempSeq.length(); i++) {
+                if (tempSeq.entry(i) > time) {
+                    found = true;
+                }
+            }
+            if (i == 0 || i == tempSeq.length() - 1) {
+                position = tempMap.value(tempSeq.entry(i));
+            } else {
+                Integer[] pos1 = tempMap.value(tempSeq.entry(i));
+                Integer[] pos2 = tempMap.value(tempSeq.entry(i + 1));
+                for (int j = 0; j < position.length; j++) {
+                    position[j] = (pos2[j] - pos1[j])
+                            / (tempSeq.entry(i + 1) - tempSeq.entry(i));
+                }
+            }
+        }
+        return position;
     }
 
     /**
