@@ -53,4 +53,23 @@ public abstract class PointTest {
         assertEquals(lenExpected, len);
     }
 
+    /**
+     *
+     */
+    @Test
+    public final void testGetCoords() {
+        Point p = this.constructorTest();
+        Integer[] pos = { 0, 0, 0 };
+        Integer[] pos2 = { 8, 8, 8 };
+        p.createNewFrame(0, pos);
+        p.createNewFrame(4, pos2);
+        int len = p.getTimes().length();
+        int lenExpected = 2;
+        Integer[] getPos = p.getPosition(0);
+        Integer[] getPos2 = p.getPosition(4);
+        assertEquals(lenExpected, len);
+        assertEquals(pos[0], getPos[0]);
+        assertEquals(pos2[0], getPos2[0]);
+    }
+
 }
