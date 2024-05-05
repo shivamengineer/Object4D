@@ -70,6 +70,10 @@ public abstract class PointTest {
         assertEquals(lenExpected, len);
         assertEquals(pos[0], getPos[0]);
         assertEquals(pos2[0], getPos2[0]);
+        assertEquals(pos[1], getPos[1]);
+        assertEquals(pos2[1], getPos2[1]);
+        assertEquals(pos[2], getPos[2]);
+        assertEquals(pos2[2], getPos2[2]);
     }
 
 }
