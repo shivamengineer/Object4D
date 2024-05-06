@@ -57,16 +57,18 @@ public abstract class PointTest {
      *
      */
     @Test
-    public final void testGetCoords() {
+    public final void testGetPositionAtFrame() {
         Point p = this.constructorTest();
         Integer[] pos = { 0, 0, 0 };
         Integer[] pos2 = { 8, 8, 8 };
         p.createNewFrame(0, pos);
         p.createNewFrame(4, pos2);
+
         int len = p.getTimes().length();
         int lenExpected = 2;
         Integer[] getPos = p.getPosition(0);
         Integer[] getPos2 = p.getPosition(4);
+
         assertEquals(lenExpected, len);
         assertEquals(pos[0], getPos[0]);
         assertEquals(pos2[0], getPos2[0]);
@@ -74,6 +76,72 @@ public abstract class PointTest {
         assertEquals(pos2[1], getPos2[1]);
         assertEquals(pos[2], getPos[2]);
         assertEquals(pos2[2], getPos2[2]);
+    }
+
+    /**
+    *
+    */
+    @Test
+    public final void testGetPositionBetweenFrames() {
+        Point p = this.constructorTest();
+        Integer[] pos = { 0, 0, 0 };
+        Integer[] pos2 = { 8, 8, 8 };
+        p.createNewFrame(0, pos);
+        p.createNewFrame(4, pos2);
+        int len = p.getTimes().length();
+        int lenExpected = 2;
+
+        Integer[] getPos = p.getPositionAtTime(2);
+        Integer[] posExpected = { 4, 4, 4 };
+
+        assertEquals(lenExpected, len);
+        assertEquals(posExpected[0], getPos[0]);
+        assertEquals(posExpected[1], getPos[1]);
+        assertEquals(posExpected[2], getPos[2]);
+    }
+
+    /**
+     *
+     */
+    @Test
+    public final void testGetPositionBeforeFrames() {
+        Point p = this.constructorTest();
+        Integer[] pos = { 2, 2, 2 };
+        Integer[] pos2 = { 10, 10, 10 };
+        p.createNewFrame(4, pos);
+        p.createNewFrame(6, pos2);
+        int len = p.getTimes().length();
+        int lenExpected = 2;
+
+        Integer[] getPos = p.getPositionAtTime(0);
+        Integer[] posExpected = { 2, 2, 2 };
+
+        assertEquals(lenExpected, len);
+        assertEquals(posExpected[0], getPos[0]);
+        assertEquals(posExpected[1], getPos[1]);
+        assertEquals(posExpected[2], getPos[2]);
+    }
+
+    /**
+    *
+    */
+    @Test
+    public final void testGetPositionAfterFrames() {
+        Point p = this.constructorTest();
+        Integer[] pos = { 2, 2, 2 };
+        Integer[] pos2 = { 10, 10, 10 };
+        p.createNewFrame(4, pos);
+        p.createNewFrame(6, pos2);
+        int len = p.getTimes().length();
+        int lenExpected = 2;
+
+        Integer[] getPos = p.getPositionAtTime(10);
+        Integer[] posExpected = { 10, 10, 10 };
+
+        assertEquals(lenExpected, len);
+        assertEquals(posExpected[0], getPos[0]);
+        assertEquals(posExpected[1], getPos[1]);
+        assertEquals(posExpected[2], getPos[2]);
     }
 
 }
