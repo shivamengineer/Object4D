@@ -25,9 +25,22 @@ public interface PointKernel extends Standard<Point> {
 
     /**
      *
+     * @param time
+     * @return position
+     */
+    Integer[] getPosition(int time);
+
+    /**
+     *
      * @return time sequence
      */
     Sequence<Integer> getTimes();
+
+    /**
+     *
+     * @return dimensions
+     */
+    int getDimensions();
 
     /**
      *

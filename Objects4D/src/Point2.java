@@ -98,6 +98,11 @@ public final class Point2 extends PointSecondary {
         return this.keyFrames;
     }
 
+    @Override
+    public int getDimensions() {
+        return this.dimensions;
+    }
+
     /**
      *
      */
