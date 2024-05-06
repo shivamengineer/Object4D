@@ -35,27 +35,33 @@ public abstract class PointSecondary implements Point {
      */
     @Override
     public Integer[] getPositionAtTime(int time) {
-        Integer[] position = null;
+        Integer[] position = new Integer[this.getDimensions()];
         Map<Integer, Integer[]> tempMap = this.getFrames();
         if (tempMap.hasKey(time)) {
             position = tempMap.value(time);
         } else if (tempMap.size() > 0) {
             Sequence<Integer> tempSeq = this.getTimes();
-            boolean found = false;
-            int i;
-            for (i = 0; !found && i < tempSeq.length(); i++) {
-                if (tempSeq.entry(i) > time) {
-                    found = true;
-                }
-            }
-            if (i == 0 || i == tempSeq.length() - 1) {
-                position = tempMap.value(tempSeq.entry(i));
+            if (time < tempSeq.entry(0)) {
+                position = tempMap.value(tempSeq.entry(0));
+            } else if (time > tempSeq.entry(tempSeq.length() - 1)) {
+                position = tempMap.value(tempSeq.entry(tempSeq.length() - 1));
             } else {
-                Integer[] pos1 = tempMap.value(tempSeq.entry(i));
-                Integer[] pos2 = tempMap.value(tempSeq.entry(i + 1));
-                for (int j = 0; j < position.length; j++) {
-                    position[j] = (pos2[j] - pos1[j])
-                            / (tempSeq.entry(i + 1) - tempSeq.entry(i));
+                int index0 = -1;
+                int index1 = -1;
+                boolean found = false;
+                for (int i = 0; !found && i < tempSeq.length(); i++) {
+                    if (time < tempSeq.entry(i)) {
+                        index0 = i - 1;
+                        index1 = i;
+                        found = true;
+                    }
+                }
+                Integer[] pos0 = tempMap.value(tempSeq.entry(index0));
+                Integer[] pos1 = tempMap.value(tempSeq.entry(index1));
+
+                for (int i = 0; i < position.length; i++) {
+                    position[i] = (pos1[i] - pos0[i]);
+                    position[i] /= (time - tempSeq.entry(index0));
                 }
             }
         }
