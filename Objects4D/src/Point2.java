@@ -124,7 +124,10 @@ public final class Point2 extends PointSecondary {
 
     @Override
     public void transferFrom(Point p) {
-
+        this.dimensions = p.getDimensions();
+        this.keyFrames = p.getFrames();
+        this.times = p.getTimes();
+        p.clear();
     }
 
 }
