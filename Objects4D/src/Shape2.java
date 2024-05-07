@@ -6,17 +6,44 @@
 public final class Shape2 extends ShapeSecondary {
 
     /**
+     *
+     */
+    private Point[] points;
+
+    /**
+     *
+     */
+    private int dimensions;
+
+    /**
      * @param d
      */
     public Shape2(int d) {
+        this.dimensions = d;
+        this.points = new Point[d];
+        for (int i = 0; i < d; i++) {
+            this.points[i] = new Point2(d);
+        }
+    }
 
+    @Override
+    public int getDimensions() {
+        return this.dimensions;
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return this.points;
     }
 
     /**
      *
      */
     private void createNewRep() {
-
+        for (int i = 0; i < this.dimensions; i++) {
+            this.points[i].clear();
+        }
+        this.dimensions = Constants.THREE;
     }
 
     @Override
@@ -26,12 +53,14 @@ public final class Shape2 extends ShapeSecondary {
 
     @Override
     public Shape newInstance() {
-        return null;
+        return new Shape2(Constants.THREE);
     }
 
     @Override
     public void transferFrom(Shape s) {
-
+        this.dimensions = s.getDimensions();
+        this.points = s.getPoints();
+        s.clear();
     }
 
 }
