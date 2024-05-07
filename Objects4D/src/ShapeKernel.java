@@ -7,4 +7,16 @@ import components.standard.Standard;
  */
 public interface ShapeKernel extends Standard<Shape> {
 
+    /**
+     *
+     * @return this.dimensions
+     */
+    int getDimensions();
+
+    /**
+     *
+     * @return this.points
+     */
+    Point[] getPoints();
+
 }
