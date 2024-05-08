@@ -1,3 +1,5 @@
+import components.map.Map;
+
 /**
  *
  * @author Shivam Engineer
@@ -24,6 +26,21 @@ public final class Shape2 extends ShapeSecondary {
         for (int i = 0; i < d; i++) {
             this.points[i] = new Point2(d);
         }
+    }
+
+    @Override
+    public void createNewFrame(int time, Integer[] position) {
+
+    }
+
+    @Override
+    public Map.Pair<Integer, Integer[]> removeFrame(int time) {
+        return null;
+    }
+
+    @Override
+    public Integer[] getPosition(int time) {
+        return null;
     }
 
     @Override
