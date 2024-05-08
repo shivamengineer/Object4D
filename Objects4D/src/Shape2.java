@@ -18,10 +18,17 @@ public final class Shape2 extends ShapeSecondary {
     private int dimensions;
 
     /**
-     * @param d
+     *
      */
-    public Shape2(int d) {
+    private int numVertices;
+
+    /**
+     * @param d
+     * @param numberOfVertices
+     */
+    public Shape2(int d, int numberOfVertices) {
         this.dimensions = d;
+        this.numVertices = numberOfVertices;
         this.points = new Point[d];
         for (int i = 0; i < d; i++) {
             this.points[i] = new Point2(d);
@@ -49,6 +56,11 @@ public final class Shape2 extends ShapeSecondary {
     }
 
     @Override
+    public int getNumVertices() {
+        return this.numVertices;
+    }
+
+    @Override
     public Point[] getPoints() {
         return this.points;
     }
@@ -61,6 +73,7 @@ public final class Shape2 extends ShapeSecondary {
             this.points[i].clear();
         }
         this.dimensions = Constants.THREE;
+        this.numVertices = Constants.THREE;
     }
 
     @Override
@@ -70,12 +83,13 @@ public final class Shape2 extends ShapeSecondary {
 
     @Override
     public Shape newInstance() {
-        return new Shape2(Constants.THREE);
+        return new Shape2(Constants.THREE, Constants.THREE);
     }
 
     @Override
     public void transferFrom(Shape s) {
         this.dimensions = s.getDimensions();
+        this.numVertices = s.getNumVertices();
         this.points = s.getPoints();
         s.clear();
     }

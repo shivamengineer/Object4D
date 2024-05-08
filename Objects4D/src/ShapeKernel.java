@@ -37,6 +37,12 @@ public interface ShapeKernel extends Standard<Shape> {
 
     /**
      *
+     * @return this.numVertices
+     */
+    int getNumVertices();
+
+    /**
+     *
      * @return this.points
      */
     Point[] getPoints();
