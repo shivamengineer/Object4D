@@ -29,15 +29,23 @@ public final class Shape2 extends ShapeSecondary {
     public Shape2(int d, int numberOfVertices) {
         this.dimensions = d;
         this.numVertices = numberOfVertices;
-        this.points = new Point[d];
-        for (int i = 0; i < d; i++) {
+        this.points = new Point[numberOfVertices];
+        for (int i = 0; i < numberOfVertices; i++) {
             this.points[i] = new Point2(d);
         }
     }
 
     @Override
     public void createNewFrame(int time, Integer[] position) {
+        for (int i = 0; i < this.numVertices; i++) {
+            Integer[] temp = new Integer[this.dimensions];
+            int margin = i * this.dimensions;
+            for (int j = 0; j < this.dimensions; i++) {
+                temp[j] = position[margin + j];
+            }
+            this.points[i].createNewFrame(time, temp);
 
+        }
     }
 
     @Override
