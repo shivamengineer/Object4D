@@ -55,7 +55,15 @@ public final class Shape2 extends ShapeSecondary {
 
     @Override
     public Integer[] getPosition(int time) {
-        return null;
+        Integer[] pos = new Integer[this.numVertices * this.dimensions];
+        for (int i = 0; i < this.numVertices; i++) {
+            Integer[] tempPos = this.points[i].getPosition(time);
+            int margin = i * this.dimensions;
+            for (int j = 0; j < this.dimensions; j++) {
+                pos[margin + j] = tempPos[j];
+            }
+        }
+        return pos;
     }
 
     @Override
