@@ -19,7 +19,7 @@ public abstract class ShapeSecondary implements Shape {
      */
     @Override
     public int hashCode() {
-        return 0;
+        return this.getDimensions() * this.getNumVertices();
     }
 
     /**
