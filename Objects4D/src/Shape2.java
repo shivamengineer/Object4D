@@ -1,4 +1,5 @@
 import components.map.Map;
+import components.map.Map1L;
 
 /**
  *
@@ -50,7 +51,17 @@ public final class Shape2 extends ShapeSecondary {
 
     @Override
     public Map.Pair<Integer, Integer[]> removeFrame(int time) {
-        return null;
+        Map<Integer, Integer[]> tempMap = new Map1L<Integer, Integer[]>();
+        Integer[] pos = new Integer[this.numVertices * this.dimensions];
+        for (int i = 0; i < this.numVertices; i++) {
+            Integer[] tempPos = this.points[i].removeFrame(time).value();
+            int margin = i * this.dimensions;
+            for (int j = 0; j < this.dimensions; j++) {
+                pos[margin + j] = tempPos[j];
+            }
+        }
+        tempMap.add(time, pos);
+        return tempMap.remove(time);
     }
 
     @Override
