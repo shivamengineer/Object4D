@@ -10,7 +10,11 @@ public abstract class ShapeSecondary implements Shape {
      */
     @Override
     public void translateFrame(int time, Integer[] translateDistance) {
-
+        Integer[] distance = this.removeFrame(time).value();
+        for (int i = 0; i < distance.length; i++) {
+            distance[i] += translateDistance[i];
+        }
+        this.createNewFrame(time, distance);
     }
 
     /**
