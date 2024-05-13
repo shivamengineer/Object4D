@@ -9,6 +9,30 @@ public abstract class ShapeSecondary implements Shape {
      *
      */
     @Override
+    public void translateFrame(int time, Integer[] translateDistance) {
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void setFramePosition(int time, Integer[] newCoords) {
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public Integer[] getPositionAtTime(int time) {
+        return null;
+    }
+
+    /**
+     *
+     */
+    @Override
     public String toString() {
         String toString = "";
         for (int i = 0; i < this.getNumVertices(); i++) {
