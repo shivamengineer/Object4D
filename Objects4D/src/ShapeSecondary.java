@@ -22,7 +22,8 @@ public abstract class ShapeSecondary implements Shape {
      */
     @Override
     public void setFramePosition(int time, Integer[] newCoords) {
-
+        this.removeFrame(time);
+        this.createNewFrame(time, newCoords);
     }
 
     /**
