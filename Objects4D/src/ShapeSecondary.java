@@ -31,7 +31,17 @@ public abstract class ShapeSecondary implements Shape {
      */
     @Override
     public Integer[] getPositionAtTime(int time) {
-        return null;
+        Point[] points = this.getPoints();
+        Integer[] position = new Integer[this.getDimensions()
+                * this.getNumVertices()];
+        for (int i = 0; i < this.getNumVertices(); i++) {
+            Integer[] tempPos = points[i].getPositionAtTime(time);
+            int margin = i * this.getDimensions();
+            for (int j = 0; j < this.getDimensions(); j++) {
+                position[j + margin] = tempPos[j];
+            }
+        }
+        return position;
     }
 
     /**
