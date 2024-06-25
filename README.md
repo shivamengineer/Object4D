@@ -1,4 +1,4 @@
-### Warning: This uses the Ohio State Components and uses data structures that are not in standard Java ###
+### WARNING: This uses the Ohio State Components and uses data structures that are not in standard Java ###
 
 With this new component, you first create objects, then with those objects, you can:
 A) create a new key frame
